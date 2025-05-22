@@ -1,0 +1,28 @@
+# Python source files
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+*.pyz
+*.pyi
+*.pyx
+*.pxd
+*.pyo
+
+# Compiled Cython files
+*.so
+*.dll
+
+# Jupyter Notebook
+*.ipynb
+
+# Python virtual environment
+venv/
+env/
+ENV/
+.venv/
+.pytest_cache/
+__pycache__/
+*.json
+*.csv
+
