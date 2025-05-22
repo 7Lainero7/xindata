@@ -18,3 +18,23 @@ def csv_to_sqlite(csv_path: str, db_path: str = 'freelancers.db', table_name: st
     df.to_sql(table_name, conn, index=False, if_exists='replace')
     # Закрываем соединение
     conn.close()
+
+
+def execute_sql(sql_query: str, db_path: str = "freelancers.db"):
+    """
+    Выполняет произвольный SQL-запрос к базе данных SQLite и возвращает результат.
+
+    :param sql_query: str, SQL-запрос для выполнения
+    :param db_path: str, путь к базе данных SQLite (по умолчанию 'freelancers.db')
+    :return: список с названиями столбцов и результатами запроса, либо сообщение об ошибке
+    """
+    conn = sqlite3.connect(db_path)
+    try:
+        cursor = conn.execute(sql_query)
+        result = cursor.fetchall()
+        columns = [desc[0] for desc in cursor.description]
+        conn.close()
+        return [columns] + result
+    except Exception as e:
+        conn.close()
+        return f"Ошибка выполнения SQL: {e}"
