@@ -5,9 +5,6 @@ from appdir.functions import download_kaggle_csv, drop_freelancer_id
 from appdir.database import csv_to_sqlite, execute_sql
 
 
-
-
-
 @click.command()
 @click.option('--query', prompt='Введите ваш вопрос', help='Вопрос для анализа')
 def analyze(query):
