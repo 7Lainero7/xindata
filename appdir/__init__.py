@@ -7,6 +7,10 @@ with open("kaggle.json", "r") as f:
 os.environ["KAGGLE_USERNAME"] = creds["username"]
 os.environ["KAGGLE_KEY"] = creds["key"]
 
+MODEL_URL = "https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF/resolve/main/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+MODEL_DIR = "models"
+MODEL_NAME = "mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+
 data_description = """
 Датасет содержит информацию о доходах и характеристиках фрилансеров. Ключевые поля:
 - Job_Category: категория работы (например, Web Development, App Development и др.)
