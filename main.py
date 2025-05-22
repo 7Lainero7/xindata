@@ -5,6 +5,13 @@ from appdir.functions import download_kaggle_csv, drop_freelancer_id
 from appdir.database import csv_to_sqlite, execute_sql
 
 
+download_kaggle_csv('shohinurpervezshohan/freelancer-earnings-and-job-trends',
+                        'freelancer_earnings_bd.csv',
+                        './data')
+drop_freelancer_id('data/freelancer_earnings_bd.csv')
+csv_to_sqlite('data/freelancer_earnings_bd.csv')
+
+
 @click.command()
 @click.option('--query', prompt='Введите ваш вопрос', help='Вопрос для анализа')
 def analyze(query):
@@ -25,9 +32,4 @@ def analyze(query):
 
 
 if __name__ == '__main__':
-    download_kaggle_csv('shohinurpervezshohan/freelancer-earnings-and-job-trends',
-                        'freelancer_earnings_bd.csv',
-                        './data')
-    drop_freelancer_id('data/freelancer_earnings_bd.csv')
-    csv_to_sqlite('data/freelancer_earnings_bd.csv')
     analyze()

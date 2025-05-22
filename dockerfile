@@ -1,19 +1,14 @@
-FROM python:3.11
+FROM python:3.11-slim
 
-# Установим необходимые системные зависимости
 RUN apt-get update && \
-    apt-get install -y cmake build-essential && \
+    apt-get install -y --no-install-recommends cmake build-essential && \
     rm -rf /var/lib/apt/lists/*
 
-# Копируем файлы проекта
 WORKDIR /app
+
+COPY requirements.txt ./
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
 COPY . /app
 
-# Установим зависимости Python
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
-
-# (Опционально) Установим llama-cpp-python
-RUN pip install llama-cpp-python
-
-CMD ["python", "main.py"]
+ENTRYPOINT ["python", "main.py"]
