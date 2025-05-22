@@ -1,7 +1,7 @@
 import click
 
 from llm_intreface import llm_generate_sql
-from appdir.functions import download_kaggle_csv, drop_freelancer_id, ensure_llama_model
+from appdir.functions import download_kaggle_csv, drop_freelancer_id
 from appdir.database import csv_to_sqlite, execute_sql
 
 
@@ -26,7 +26,8 @@ def analyze(query):
 
 if __name__ == '__main__':
     download_kaggle_csv('shohinurpervezshohan/freelancer-earnings-and-job-trends',
-                         'freelancer_earnings_bd.csv', './data')
+                        'freelancer_earnings_bd.csv',
+                        './data')
     drop_freelancer_id('data/freelancer_earnings_bd.csv')
     csv_to_sqlite('data/freelancer_earnings_bd.csv')
     analyze()
