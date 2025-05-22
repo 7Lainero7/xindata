@@ -1,7 +1,7 @@
 import os
-import zipfile
 import json
 
+import pandas as pd
 from kaggle.api.kaggle_api_extended import KaggleApi
 
 
@@ -31,3 +31,17 @@ def download_kaggle_csv(dataset: str, file_name: str, download_path: str, kaggle
             zip_ref.extractall(download_path)
         os.remove(zip_path)
 
+
+def drop_freelancer_id(csv_path: str, output_path: str = None):
+    """
+    Удаляет столбец 'Freelancer_ID' из csv-файла.
+
+    :param csv_path: путь к исходному csv-файлу
+    :param output_path: путь для сохранения результата (если None — перезаписывает исходный файл)
+    """
+    df = pd.read_csv(csv_path)
+    if 'Freelancer_ID' in df.columns:
+        df = df.drop(columns=['Freelancer_ID'])
+    if output_path is None:
+        output_path = csv_path
+    df.to_csv(output_path, index=False)
