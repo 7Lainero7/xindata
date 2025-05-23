@@ -28,13 +28,13 @@ def execute_sql(sql_query: str, db_path: str = "freelancers.db"):
     :param db_path: str, путь к базе данных SQLite (по умолчанию 'freelancers.db')
     :return: список с названиями столбцов и результатами запроса, либо сообщение об ошибке
     """
-    conn = sqlite3.connect(db_path)
     try:
+        conn = sqlite3.connect(db_path)
         cursor = conn.execute(sql_query)
         result = cursor.fetchall()
-        columns = [desc[0] for desc in cursor.description]
+        columns = [desc[0] for desc in cursor.description] if cursor.description else []
         conn.close()
-        return [columns] + result
+        return [columns] + result if columns else result
     except Exception as e:
         conn.close()
-        return f"Ошибка выполнения SQL: {e}"
+        return [["Ошибка"], [str(e)]]

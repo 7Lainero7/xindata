@@ -13,22 +13,26 @@ csv_to_sqlite('data/freelancer_earnings_bd.csv')
 
 
 @click.command()
-@click.option('--query', prompt='Введите ваш вопрос', help='Вопрос для анализа')
-def analyze(query):
+def analyze():
     """
     Анализирует введённый пользователем вопрос, генерирует соответствующий SQL-запрос
     с помощью LLM, выполняет его и выводит результат.
-
-    :param query: str, вопрос на естественном языке, который требуется преобразовать
-    в SQL-запрос и выполнить.
-    :return: None, результат выполнения SQL-запроса выводится в консоль.
     """
-    sql_query = llm_generate_sql(query)
-    print(f"SQL-запрос: {sql_query}")
-    result = execute_sql(sql_query)
-    print("Результат запроса:")
-    for row in result:
-        print(row)
+    print("Введите ваш вопрос (или 'exit' для выхода):")
+    while True:
+        query = click.prompt("> ", type=str)
+        if query.lower() in ("exit", "quit"):
+            break
+        sql_query = llm_generate_sql(query)
+        print(f"SQL-запрос: {sql_query}")
+        result = execute_sql(sql_query)
+        if not result or isinstance(result, str):
+            print("Нет данных или произошла ошибка при выполнении запроса.")
+            if isinstance(result, str):
+                print(result)
+        else:
+            for row in result:
+                print(row)
 
 
 if __name__ == '__main__':
