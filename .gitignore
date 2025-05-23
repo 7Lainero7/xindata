@@ -25,4 +25,4 @@ ENV/
 __pycache__/
 *.json
 *.csv
-
+*.gguf
